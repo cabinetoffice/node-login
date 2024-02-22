@@ -5,7 +5,7 @@
 
 ## Overview and Scope
 
-This `@co-digital/login` aims to provide a simple solution for implementing user authentication within your Node.js applications. With a focus on security and ease of integration, our solution incorporates a middleware that connects to our internal Identity provider COLA and relatively soon OneLogin.
+This `@co-digital/login` aims to provide a simple solution for implementing user authentication within within CO Node.js applications. With a focus on security and ease of integration, our solution incorporates a middleware that connects to our internal Identity provider COLA and relatively soon OneLogin.
 
 ## Installing
 
@@ -25,7 +25,7 @@ AUTH_SIGN_IN_URL | Authentication sign in URL | `https://cola.service.cabinetoff
 COOKIE_ID_NAME | The name of the cookie | `github-requests` for [github-requests-app](https://github.com/cabinetoffice/github-requests-app)
 COOKIE_PARSER_SECRET | Secret used in validating/calculating the cookie signature | `secret`
 COOKIE_SESSION_SECRET | Secret key for signing the session cookie | `secret`
-LOG_LEVEL       | Logging levels        | `info` (Log only if info.level is less than or equal to this level)
+LOG_LEVEL       | Logging levels        | `info` (Log only if `info.level` is less than or equal to this level)
 HUMAN | Formatting messages form (default JSON) | `true` (Enable human formatting for log messages)
 
 ## Files Structure
@@ -33,8 +33,8 @@ HUMAN | Formatting messages form (default JSON) | `true` (Enable human formattin
 Directory Path | Description
 --- | ---
 `./config/` | This folder contains configuration settings for the login module. It is essential for fetching sensitive information such as `COOKIE_PARSER_SECRET` or `COOKIE_SESSION_SECRET`.
-`./util/` | This folder contains utility functions used throughout the login module, including Session and Cookie utils.
-`./index.ts` | This file will expose the authentication middleware and Session and Cookie utils methods.
+`./utils/` | This folder contains utility functions used throughout the login module, including Session and Cookie utils.
+`./index.ts` | This file will expose the authentication middleware and Session and Cookie utils.
 `./test` | Jest Test files (`*.spec.ts`, `setup.ts`, and `*.mocks.ts`)
 Others files | Other files related to modules dependency, CI/CD, *git, lint, test/typescript configs …
 
@@ -48,7 +48,7 @@ To integrate our login solution into your Node.js application, follow these simp
 npm i @co-digital/login
 ```
 
-- **Middleware Configuration**: Configure the module to utilize the associated authentication middleware by incorporating the appropriate environment data and enabling `cookieParser` and `cookieSession` within the application configuration file.
+- **Middleware Configuration**: Configure the module to utilise the associated authentication middleware by incorporating the appropriate environment data and enabling `cookieParser` and `cookieSession` within the application configuration file.
 
 ```ts
 // On app.ts
@@ -58,7 +58,7 @@ app.use(cookieSession({ secret: COOKIE_SESSION_SECRET }));
 ...
 ```
 
-- **Route Setup**: Define routes for any authentication-related endpoints required by your application and utilize the middleware to protect routes that require authentication.
+- **Route Setup**: Define routes for any authentication-related endpoints required by your application and utilise the middleware to protect routes that require authentication.
 
 ```ts
 // On any endpoint when auth is required (eg. home route)
@@ -70,19 +70,19 @@ homePageRouter.get(config.HOME_URL, authentication, get);
 ...
 ```
 
-- **Frontend Integration**: `COLA` has already developed user interface components for login, logout, and other authentication-related actions. However, for integration with other Identity Providers (IdPs) such as `OneLogin`, you'll need to implement these components within your application.
+- **Frontend Integration**: `COLA` has already developed user interface components for login, logout, and other authentication-related actions. However, for integration with other Identity Providers (IdPs) such as `GOV.UK One Login`, you'll need to implement these components within your application.
 
 ## Note
 
-- `COLA` provides a secure login mechanism for any Cabinet Office service that hosts under the some domain - `cabinetoffice.gov.uk` and under the hood utilises and abstracts AWS Cognito for user management.
+- `COLA` service that is hosted under the `cabinetoffice.gov.uk` domain. Under the hood, it utilises and abstracts AWS Cognito for user management.
 
-- `cookieParser` method from `cookie-parser` module parse cookie header and populate `req.cookies` with an object keyed by the cookie names. The middleware will parse the cookie header on the request and expose the cookie data as the property `req.signedCookies` when a secret was provided.
+- `cookieParser` method from `cookie-parser` module parses cookie header and populates `req.cookies` with an object keyed by the cookie names. The middleware will parse the cookie header on the request and expose the cookie data as the property `req.signedCookies` if a secret was provided.
 
-- `cookieParser.signedCookie(str, secret)` parse a cookie value as a signed cookie. This will return the parsed unsigned value if it was a signed cookie and the signature was valid. If the value was not signed, the original value is returned. If the value was signed but the signature could not be validated, false is returned.
+- `cookieParser.signedCookie(str, secret)` parses a cookie value as a signed cookie. This will return the parsed unsigned value if it was a signed cookie and the signature was valid. If the value was not signed, the original value is returned. If the value was signed but the signature could not be validated, `false` is returned.
 
 - After the server sends a cookie to a client, the client might modify the cookie before sending it back to the server in a future request. So you sign a cookie if you want assurance that the data being returned in the cookie has not been modified by the client.
 
-- `cookieSession` creates a new cookie session middleware. This middleware will attach the property session to req, which provides an object representing the loaded session. This session is either a new session if no valid session was provided in the request, or a loaded session from the request. The `req.session` represents the session for the given request.
+- `cookieSession` creates a new cookie session middleware. This middleware will attach the property session to `req`, which provides an object representing the loaded session. This session is either a new session if no valid session was provided in the request, or a loaded session from the request. The `req.session` represents the session for the given request.
 
 ```ts
 app.use(
@@ -93,7 +93,7 @@ app.use(
 );
 ```
 
-### Why cookie-session module
+### Purpose of cookie-session module
 
 - `cookie-session` does not require any database/resources on the server side, though the total session data cannot exceed the browser's max cookie size.
 - `cookie-session` can simplify certain load-balanced scenarios.
