@@ -1,0 +1,54 @@
+{
+  "name": "@co-digital/login",
+  "version": "1.0.0",
+  "description": "A login library for Node.JS applications in CO Digital.",
+  "homepage": "https://github.com/cabinetoffice/node-login#README.md",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node lib/index.js",
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "lint:fix": "eslint '{src,test}/**/*.ts' --fix",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "prepare": "husky install",
+    "prepublish": "[ ! -d node_modules ] && npm ci; tsc",
+    "postpublish": "rm -rf lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cabinetoffice/node-login.git"
+  },
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=20.8.0"
+  },
+  "author": "X-CO Developers",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "./lib/**/*"
+  ],
+  "keywords": [
+    "login",
+    "COLA",
+    "authentication"
+  ],
+  "dependencies": {
+    "@co-digital/logging": "^1.0.2",
+    "cookie-parser": "^1.4.6"
+  }
+}
