@@ -1,7 +1,8 @@
 import { getEnvironmentValue } from '../utils/env';
 
 export const SERVICE_NAME = 'Authentication Middleware';
-export const SESSION_APP_KEY = getEnvironmentValue('SESSION_APP_KEY', 'git');
+export const SESSION_APP_KEY = getEnvironmentValue('SESSION_APP_KEY');
+export const KEY_ID = getEnvironmentValue('KEY_ID', 'id');
 
 export const AUTH_SIGN_IN_URL = getEnvironmentValue('AUTH_SIGN_IN_URL');
 
