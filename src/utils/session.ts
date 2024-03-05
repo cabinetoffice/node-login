@@ -8,15 +8,8 @@ export const setSessionData = (session: any, appData: any): void => {
     return session[SESSION_APP_KEY] = { ...appData };
 };
 
-export const removeSessionData = (session: any) => {
+export const removeSessionData = (session: any): void => {
     session[SESSION_APP_KEY] = null;
-};
-
-export const setApplicationData = (session: any, data: any, key: string): void => {
-    setSessionData(session, {
-        ...getSessionData(session),
-        [key]: { ...data }
-    });
 };
 
 export const setApplicationDataKey = (session: any, data: any, key: string): void => {
@@ -31,7 +24,7 @@ export const setApplicationDataKey = (session: any, data: any, key: string): voi
 
 export const getApplicationDataKey = (session: any, key: string): any => {
     const sessionData = getSessionData(session);
-    return sessionData?.[key] || [];
+    return sessionData[key] || [];
 };
 
 export const getApplicationDataByID = (session: any, key: string, id: string | undefined): any => {
@@ -46,7 +39,7 @@ export const getApplicationDataByID = (session: any, key: string, id: string | u
     return {};
 };
 
-export const setApplicationDataByID = (session: any, data: any, key: string, id: string): void => {
+export const setApplicationDataByID = (session: any, data: any, key: string, id: string | undefined): void => {
     const appDataKey = getApplicationDataKey(session, key);
 
     if (id && appDataKey.length) {
@@ -58,7 +51,7 @@ export const setApplicationDataByID = (session: any, data: any, key: string, id:
     }
 };
 
-export const removeApplicationDataByID = (session: any, key: string, id: string): void => {
+export const removeApplicationDataByID = (session: any, key: string, id: string | undefined): void => {
     const appDataKey = getApplicationDataKey(session, key);
 
     if (id && appDataKey.length) {
@@ -71,6 +64,6 @@ export const removeApplicationDataByID = (session: any, key: string, id: string)
     }
 };
 
-const getIndex = (data: any[], id: string) => {
+const getIndex = (data: any[], id: string): number => {
     return data.findIndex((el: any) => el[KEY_ID] === id);
 };

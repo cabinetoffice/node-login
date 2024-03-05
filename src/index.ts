@@ -1,4 +1,13 @@
-import { getSessionData, setSessionData, removeSessionData } from './utils/session';
+import {
+    getSessionData,
+    setSessionData,
+    removeSessionData,
+    setApplicationDataKey,
+    getApplicationDataKey,
+    getApplicationDataByID,
+    setApplicationDataByID,
+    removeApplicationDataByID
+} from './utils/session';
 import { authentication as colaAuthenticationMiddleware } from './middleware/cola/authentication.middleware';
 import { getUnsignedCookie } from './utils/cookie';
 
@@ -7,5 +16,10 @@ export {
     getUnsignedCookie,
     removeSessionData,
     getSessionData,
-    setSessionData
+    setSessionData,
+    setApplicationDataKey,
+    getApplicationDataKey,
+    getApplicationDataByID,
+    setApplicationDataByID,
+    removeApplicationDataByID
 };
