@@ -1,0 +1,20 @@
+export interface DecodedColaJwt {
+  sub?: string,
+  email_verified?: boolean,
+  'custom:lastLogin'?: string,
+  'custom:features'?: string,
+  iss?: string,
+  'cognito:username'?: string,
+  given_name?: string,
+  origin_jti?: string,
+  aud?: string,
+  event_id?: string,
+  token_use?: string,
+  'custom:phoneNumber'?: string,
+  auth_time?: number,
+  exp?: number,
+  iat?: number,
+  family_name?: string,
+  jti?: string,
+  email?: string
+}
