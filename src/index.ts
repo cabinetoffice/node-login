@@ -9,11 +9,12 @@ import {
     removeApplicationDataByID
 } from './utils/session';
 import { authentication as colaAuthenticationMiddleware } from './middleware/cola/authentication.middleware';
-import { getUnsignedCookie } from './utils/cookie';
+import { getUnsignedCookie, getUserEmailFromColaJwt } from './utils/cookie';
 
 export {
     colaAuthenticationMiddleware,
     getUnsignedCookie,
+    getUserEmailFromColaJwt,
     removeSessionData,
     getSessionData,
     setSessionData,
