@@ -49,6 +49,7 @@
   ],
   "dependencies": {
     "@co-digital/logging": "^1.0.2",
-    "cookie-parser": "^1.4.6"
+    "cookie-parser": "^1.4.6",
+    "jwt-decode": "^4.0.0"
   }
 }
