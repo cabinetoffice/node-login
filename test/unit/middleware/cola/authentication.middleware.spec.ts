@@ -16,7 +16,8 @@ import { log } from '../../../../src/utils/logger';
 import {
     getCookieValue,
     getUnsignedCookie,
-    validateUnsignedCookie
+    validateUnsignedCookie,
+    getUserEmailFromColaJwt,
 } from '../../../../src/utils/cookie';
 import { cookieSignedValue, req } from '../../../mock/data.mock';
 
@@ -26,10 +27,12 @@ const logErrorRequestMock = log.errorRequest as jest.Mock;
 const getCookieValueMock = getCookieValue as jest.Mock;
 const getUnsignedCookieMock = getUnsignedCookie as jest.Mock;
 const validateUnsignedCookieMock = validateUnsignedCookie as jest.Mock;
+const getUserEmailFromColaJwtMock = getUserEmailFromColaJwt as jest.Mock;
 
 export const mockResponse = () => {
     const res = {} as Response;
     res.redirect = jest.fn() as any;
+    res.locals = {};
     return res;
 };
 
@@ -86,6 +89,21 @@ describe('Cola Authentication Middleware test suites', () => {
 
         expect(logErrorRequestMock).toHaveBeenCalledTimes(0);
         expect(res.redirect).toHaveBeenCalledTimes(0);
+    });
+
+    test('should attach userEmailAuth property to res.locals if validation is successful', () => {
+        const unsignedCookie = 'xyz.123';
+        const email = 'placeholder@fake.com';
+
+        getUnsignedCookieMock.mockReturnValueOnce(unsignedCookie);
+        validateUnsignedCookieMock.mockReturnValueOnce(true);
+        getUserEmailFromColaJwtMock.mockReturnValueOnce(email);
+
+        authentication(req, res, next);
+
+        expect(getUserEmailFromColaJwtMock).toHaveBeenCalledTimes(1);
+        expect(getUserEmailFromColaJwtMock).toHaveBeenCalledWith(unsignedCookie);
+        expect(res.locals.userEmailAuth).toBe(email);
     });
 
     test('should call next with error object if error is thrown', () => {
