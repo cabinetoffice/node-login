@@ -8,6 +8,7 @@ import {
 import {
     getCookieValue,
     getUnsignedCookie,
+    getUserEmailFromColaJwt,
     validateUnsignedCookie
 } from '../../utils/cookie';
 
@@ -19,6 +20,8 @@ export const authentication = ( req: Request, res: Response, next: NextFunction 
         const unsignedCookie = getUnsignedCookie(cookieSignedValue, COOKIE_PARSER_SECRET);
 
         if (validateUnsignedCookie(unsignedCookie)) {
+            const userEmailAuth = getUserEmailFromColaJwt(unsignedCookie as string);
+            res.locals.userEmailAuth = userEmailAuth;
             log.debugRequest(req, `Successfully verified signature for ${COOKIE_ID_NAME}, cookie value: ${unsignedCookie}`);
         } else {
             log.errorRequest(req, `Failed to verify signature for ${COOKIE_ID_NAME}, cookie value: ${cookieSignedValue}, redirect to ${AUTH_SIGN_IN_URL}`);
